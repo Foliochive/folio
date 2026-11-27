@@ -49,7 +49,7 @@ const edRow=(e,x="")=>`<div class="row">${cover(e,e.b)}<div class="info"><b>${es
 async function refresh(){
  const b=await sb.from("books").select("*, editions(*)").order("title");if(b.error)return fail(b.error);books=b.data;
  const l=await sb.from("listings").select("*").order("created_at",{ascending:false});listings=l.data||[];
- shelf=[];if(user){const s=await sb.from("shelf").select("edition_id,kind");shelf=s.data||[]}
+ shelf=[];isAdmin=false;if(user){const s=await sb.from("shelf").select("edition_id,kind");shelf=s.data||[];const a=await sb.rpc("is_admin");isAdmin=a.data===true}
  render()}
 function nav(){const t={browse:"Browse",have:`Collection (${shelf.filter(s=>s.kind==="have").length})`,want:`Wantlist (${shelf.filter(s=>s.kind==="want").length})`,market:"Marketplace",add:"Add a book",auth:user?"Account":"Sign in"};
  $("#nav").innerHTML=Object.entries(t).map(([k,v])=>`<button data-go="${k}" class="${view===k?"on":""}">${v}</button>`).join("")}
