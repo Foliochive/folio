@@ -68,7 +68,7 @@ document.addEventListener("click",async ev=>{const t=ev.target.closest("[data-go
  try{
  if(d.go)view=d.go;else if(d.book){cur=d.book;view="book"}
  else if(d.out){await sb.auth.signOut();view="browse"}
- else if(d.cover){pendingEd=d.cover;$("#cf").click();return}
+ else if(d.cover){pendingEd=d.cover;$("#cf").click();return}  else if(d.deled){if(!confirm("Delete this edition? This can’t be undone."))return;const r=await sb.from("editions").delete().eq("id",d.deled).select();if(r.error)throw r.error;toast(r.data.length?"Edition deleted":"You can’t delete that one");await refresh();return}  else if(d.delbook){if(!confirm("Delete this book and its editions? This can’t be undone."))return;const r=await sb.from("books").delete().eq("id",d.delbook).select();if(r.error)throw r.error;if(r.data.length){toast("Book deleted");cur=null;view="browse"}else toast("You can’t delete that one");await refresh();return}
  else if(d.buy){toast("Checkout isn’t built yet");return}
  else if(d.have||d.want){if(!user){toast("Sign in first");view="auth";return render()}
   const id=d.have||d.want,k=d.have?"have":"want";
