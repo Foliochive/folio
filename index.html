@@ -32,7 +32,7 @@ input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 const sb=supabase.createClient("https://jsxygqzllyneviurrpip.supabase.co","sb_publishable_eLqiVN4Zq1Ft8PH-T1j3og_L7e_CUyv");
-let books=[],shelf=[],listings=[],user=null,view="browse",cur=null,q="";
+let isAdmin=false,books=[],shelf=[],listings=[],user=null,view="browse",cur=null,q="";
 const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("s");setTimeout(()=>t.classList.remove("s"),2800)}
 const fail=e=>{console.error(e);toast(e.message||"Something went wrong")};
